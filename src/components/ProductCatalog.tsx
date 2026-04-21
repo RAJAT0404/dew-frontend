@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { products, categories, Product } from "@/lib/data";
 import ProductCard from "./ProductCard";
 import CategoryPills from "./CategoryPills";
+import CategoryDropdown from "./CategoryDropdown";
 
 const ITEMS_PER_PAGE = 12; // 4x3 grid
 
@@ -49,12 +50,13 @@ export default function ProductCatalog() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    setSearchQuery(val);
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     const params = new URLSearchParams(searchParams.toString());
-    if (val) params.set("q", val);
+    if (searchQuery) params.set("q", searchQuery);
     else params.delete("q");
+    if (activeCategory !== "All Categories") params.set("category", activeCategory);
+    else params.delete("category");
     router.push(`/catalog?${params.toString()}`, { scroll: false });
   };
 
@@ -62,30 +64,63 @@ export default function ProductCatalog() {
     <div id="products" className="max-w-7xl mx-auto px-6 lg:px-10 py-12 scroll-mt-24">
       {/* Search and Filters Header */}
       <div className="flex flex-col space-y-8 mb-12">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+          <div className="max-w-xl">
             <h1 className="font-display text-4xl font-bold text-ink tracking-tight">
               Product Catalog
             </h1>
-            <p className="text-muted mt-2 text-lg">
-              Browse our comprehensive directory of industrial engineering solutions.
+            <p className="text-muted mt-3 text-lg leading-relaxed">
+              Browse our comprehensive directory of industrial engineering solutions, technical data, and expert manufacturers.
             </p>
           </div>
           
-          <div className="relative max-w-md w-full">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-              <svg className="h-5 w-5 text-faint" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
+          <form 
+            onSubmit={handleSearchSubmit}
+            className="flex-1 max-w-2xl w-full"
+          >
+            <div className="flex items-stretch bg-surface border border-line rounded-xl shadow-sm hover:border-accent-border focus-within:border-accent focus-within:ring-2 focus-within:ring-accent/15 transition-all duration-200">
+              {/* Search icon */}
+              <div className="flex items-center pl-4 pr-3 text-faint flex-shrink-0">
+                <svg viewBox="0 0 20 20" fill="none" className="w-5 h-5" aria-hidden="true">
+                  <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="1.5" />
+                  <path d="M13 13l3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </div>
+
+              {/* Text input */}
+              <input
+                type="text"
+                placeholder="Search products, companies, tags..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="flex-1 py-4 text-base text-ink placeholder:text-faint bg-transparent outline-none min-w-0"
+              />
+
+              {/* Divider */}
+              <div className="w-px bg-line my-3 flex-shrink-0" aria-hidden="true" />
+
+              {/* Category Dropdown */}
+              <CategoryDropdown 
+                value={activeCategory === "All Categories" ? "" : activeCategory}
+                onChange={(val) => {
+                  const category = val || "All Categories";
+                  setActiveCategory(category);
+                  const params = new URLSearchParams(searchParams.toString());
+                  if (val) params.set("category", val);
+                  else params.delete("category");
+                  router.push(`/catalog?${params.toString()}`, { scroll: false });
+                }}
+              />
+
+              {/* Submit button */}
+              <button
+                type="submit"
+                className="cursor-pointer m-2 px-6 bg-accent hover:bg-accent-hover text-white text-sm font-medium rounded-lg transition-colors duration-150 flex-shrink-0"
+              >
+                Search
+              </button>
             </div>
-            <input
-              type="text"
-              placeholder="Search products, companies, tags..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-              className="block w-full pl-10 pr-4 py-3 bg-surface border border-line rounded-xl text-ink placeholder:text-faint focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all shadow-sm"
-            />
-          </div>
+          </form>
         </div>
 
         <div className="border-t border-line/50 pt-8">

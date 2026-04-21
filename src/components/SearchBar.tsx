@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { categories } from "@/lib/data";
+import CategoryDropdown from "./CategoryDropdown";
 
 export default function SearchBar() {
   const [query, setQuery] = useState("");
@@ -25,7 +26,7 @@ export default function SearchBar() {
       aria-label="Search engineering products"
     >
       {/* Main search row */}
-      <div className="flex items-stretch bg-surface border border-line rounded-xl shadow-sm hover:border-accent-border focus-within:border-accent focus-within:ring-2 focus-within:ring-accent/15 transition-all duration-200 overflow-hidden">
+      <div className="flex items-stretch bg-surface border border-line rounded-xl shadow-sm hover:border-accent-border focus-within:border-accent focus-within:ring-2 focus-within:ring-accent/15 transition-all duration-200">
         {/* Search icon */}
         <div className="flex items-center pl-4 pr-3 text-faint flex-shrink-0">
           <svg
@@ -54,26 +55,11 @@ export default function SearchBar() {
         {/* Divider */}
         <div className="w-px bg-line my-3 flex-shrink-0" aria-hidden="true" />
 
-        {/* Category select */}
-        <select
-          id="search-category"
+        {/* Category Dropdown */}
+        <CategoryDropdown 
           value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className="appearance-none bg-transparent text-sm text-muted px-4 outline-none cursor-pointer hover:text-ink transition-colors duration-150 pr-8 flex-shrink-0"
-          aria-label="Filter by category"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%239C9C97' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "right 12px center",
-            backgroundSize: "16px",
-          }}
-        >
-          {categories.map((cat) => (
-            <option key={cat} value={cat === "All Categories" ? "" : cat}>
-              {cat}
-            </option>
-          ))}
-        </select>
+          onChange={setCategory}
+        />
 
         {/* Submit button */}
         <button
