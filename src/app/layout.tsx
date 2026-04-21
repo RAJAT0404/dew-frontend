@@ -21,7 +21,12 @@ export const metadata: Metadata = {
   },
   description:
     "Discover new industrial products with real insights from across the engineering industry. Search pumps, power supplies, manufacturers and more.",
-  keywords: ["engineering products", "pump discovery", "industrial equipment", "product intelligence"],
+  keywords: [
+    "engineering products",
+    "pump discovery",
+    "industrial equipment",
+    "product intelligence",
+  ],
 };
 
 export default function RootLayout({
@@ -34,9 +39,7 @@ export default function RootLayout({
       lang="en"
       className={`${plusJakarta.variable} ${dmSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-canvas text-ink">
-        {children}
-      </body>
+      <body className="bg-canvas text-ink">{children}</body>
     </html>
   );
 }

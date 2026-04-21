@@ -12,24 +12,32 @@ import SearchBar from "@/components/SearchBar";
 export default function HomePage() {
   return (
     <>
-      <main className="flex-1">
+      <main>
         {/* 1. HERO — Navbar is embedded inside as an absolute overlay */}
         <Hero />
 
-        {/* SEARCH */}
-        <section className="-translate-y-1/2">
+        {/* 2. SEARCH */}
+        <section className="py-20 bg-canvas/30 border-b border-line/50">
           <div className="max-w-4xl mx-auto px-6 lg:px-8 animate-fade-in-up delay-300">
+            <div className="text-center mb-10">
+              <h2 className="font-display text-3xl font-bold text-ink tracking-tight">
+                Advanced Engineering Search
+              </h2>
+              <p className="text-sm text-muted mt-3 max-w-lg mx-auto">
+                Discover premium products, technical data, and expert manufacturers across all engineering categories.
+              </p>
+            </div>
             <SearchBar />
           </div>
         </section>
 
-        {/* 2. VALUE PROPS — Advanced Sourcing, Verified Data, Expert Network */}
+        {/* 3. VALUE PROPS — Advanced Sourcing, Verified Data, Expert Network */}
         <ValueProps />
 
-        {/* 3. SPLIT — ENGINEERS / SUPPLIERS */}
+        {/* 4. SPLIT — ENGINEERS / SUPPLIERS */}
         <SplitSection />
 
-        {/* 4. PRODUCT FEED — searchable catalog */}
+        {/* 5. PRODUCT FEED — searchable catalog */}
         <Suspense
           fallback={
             <div className="py-20 text-center text-slate-500">
@@ -40,17 +48,17 @@ export default function HomePage() {
           <ProductFeed />
         </Suspense>
 
-        {/* 5. ADVISORY BOARD — dark blue CTA */}
+        {/* 6. ADVISORY BOARD — dark blue CTA */}
         <AdvisoryBoard />
 
-        {/* 6. ENGINEERING SERVICES — Tools, Jobs, Knowledge */}
+        {/* 7. ENGINEERING SERVICES — Tools, Jobs, Knowledge */}
         <EngineeringServices />
 
-        {/* 7. PREMIUM PARTNERS — scrollable list */}
+        {/* 8. PREMIUM PARTNERS — scrollable list */}
         <PremiumPartners />
       </main>
 
-      {/* 7. FOOTER */}
+      {/* 9. FOOTER */}
       <Footer />
     </>
   );

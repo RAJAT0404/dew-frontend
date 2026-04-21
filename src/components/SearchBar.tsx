@@ -79,7 +79,7 @@ export default function SearchBar() {
         <button
           id="search-submit"
           type="submit"
-          className="m-2 px-5 bg-accent hover:bg-accent-hover text-white text-sm font-medium rounded-lg transition-colors duration-150 flex-shrink-0"
+          className="cursor-pointer m-2 px-8 bg-accent hover:bg-accent-hover text-white text-sm font-medium rounded-lg transition-colors duration-150 flex-shrink-0"
           aria-label="Search"
         >
           Search
