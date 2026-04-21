@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { categories } from "@/lib/data";
 
 const categoryIcons: Record<string, React.ReactNode> = {
@@ -50,6 +50,8 @@ export default function CategoryPills() {
   const searchParams = useSearchParams();
   const activeCategory = searchParams.get("category") || "";
 
+  const pathname = usePathname();
+
   const displayCategories = categories.filter((c) => c !== "All Categories");
 
   const handleCategoryClick = (cat: string) => {
@@ -59,7 +61,8 @@ export default function CategoryPills() {
     } else {
       params.set("category", cat);
     }
-    router.push(`/?${params.toString()}#products`, { scroll: false });
+    const targetPath = pathname === "/catalog" ? "/catalog" : "/";
+    router.push(`${targetPath}?${params.toString()}#products`, { scroll: false });
   };
 
   return (

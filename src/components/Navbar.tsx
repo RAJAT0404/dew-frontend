@@ -4,12 +4,11 @@ import Link from "next/link";
 import { useState } from "react";
 
 const navLinks = [
+  { label: "Catalog", href: "/catalog" },
   { label: "Insights", href: "/#products" },
   { label: "Supplier Network", href: "/" },
   { label: "Engineering Tools", href: "/#how-it-works" },
   { label: "Jobs", href: "/" },
-  { label: "Knowledge", href: "/" },
-  { label: "Advisors", href: "/" },
 ];
 
 type NavbarProps = {
