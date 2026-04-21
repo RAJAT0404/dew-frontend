@@ -12,18 +12,48 @@ const navLinks = [
   { label: "Advisors", href: "/" },
 ];
 
-export default function Navbar() {
+type NavbarProps = {
+  glass?: boolean;
+};
+
+export default function Navbar({ glass = false }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const shellClassName = glass
+    ? "bg-white/10 backdrop-blur-md border border-white/20"
+    : "bg-white/95 border border-slate-200";
+
+  const logoTextClassName = glass ? "text-white" : "text-slate-900";
+
+  const desktopLinkClassName = glass
+    ? "text-sm text-white/75 hover:text-white font-medium transition-colors duration-150 whitespace-nowrap"
+    : "text-sm text-slate-600 hover:text-slate-900 font-medium transition-colors duration-150 whitespace-nowrap";
+
+  const ctaClassName = glass
+    ? "inline-flex items-center bg-accent hover:bg-accent-hover text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors duration-150 shadow-sm"
+    : "inline-flex items-center bg-accent hover:bg-accent-hover text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors duration-150 shadow-sm";
+
+  const mobileButtonClassName = glass
+    ? "md:hidden p-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+    : "md:hidden p-2 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors";
+
+  const mobileMenuClassName = glass
+    ? "md:hidden mt-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-lg px-5 py-4 flex flex-col gap-3 animate-fade-in"
+    : "md:hidden mt-2 bg-white/95 border border-slate-200 rounded-2xl shadow-lg px-5 py-4 flex flex-col gap-3 animate-fade-in";
+
+  const mobileLinkClassName = glass
+    ? "text-sm font-medium text-white/85 hover:text-white"
+    : "text-sm font-medium text-slate-700 hover:text-slate-900";
 
   return (
     <header className="absolute inset-x-0 top-0 z-50 px-6 pt-5 lg:px-10">
       <div className="max-w-7xl mx-auto">
         {/* Floating pill card */}
-        <div className="flex items-center justify-between bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-lg px-5 py-3.5 gap-6">
+        <div className={`flex items-center justify-between ${shellClassName} rounded-2xl shadow-lg px-5 py-3.5 gap-6`}>
 
           {/* Logo word-mark */}
-          <Link href="/" aria-label="Dew Home" className="flex-shrink-0">
-            <span className="text-[10px] font-black uppercase tracking-widest text-white leading-snug block">
+          <Link href="/" aria-label="Dew Home" className="shrink-0">
+            <span className={`text-[10px] font-black uppercase tracking-widest ${logoTextClassName} leading-snug block`}>
               DESIGN<br />ENGINEERING<br />WORLD
             </span>
           </Link>
@@ -34,7 +64,7 @@ export default function Navbar() {
               <Link
                 key={item.label}
                 href={item.href}
-                className="text-sm text-white/75 hover:text-white font-medium transition-colors duration-150 whitespace-nowrap"
+                className={desktopLinkClassName}
               >
                 {item.label}
               </Link>
@@ -42,10 +72,10 @@ export default function Navbar() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center flex-shrink-0">
+          <div className="hidden md:flex items-center shrink-0">
             <Link
               href="/"
-              className="inline-flex items-center bg-accent hover:bg-accent-hover text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors duration-150 shadow-sm"
+              className={ctaClassName}
             >
               Get Listed
             </Link>
@@ -54,7 +84,7 @@ export default function Navbar() {
           {/* Mobile burger */}
           <button
             id="mobile-menu-toggle"
-            className="md:hidden p-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+            className={mobileButtonClassName}
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
@@ -71,12 +101,12 @@ export default function Navbar() {
 
         {/* Mobile dropdown */}
         {menuOpen && (
-          <div className="md:hidden mt-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-lg px-5 py-4 flex flex-col gap-3 animate-fade-in">
+          <div className={mobileMenuClassName}>
             {navLinks.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
-                className="text-sm font-medium text-white/85 hover:text-white"
+                className={mobileLinkClassName}
                 onClick={() => setMenuOpen(false)}
               >
                 {item.label}

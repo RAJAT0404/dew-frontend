@@ -29,7 +29,7 @@ export default function Hero() {
       />
 
       {/* Navbar floats over the hero */}
-      <Navbar />
+      <Navbar glass={true} />
 
       {/* Content — bottom-left area */}
       <div className="relative z-10 flex-1 flex items-end pb-20 md:pb-28">
