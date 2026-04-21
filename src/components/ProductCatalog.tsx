@@ -1,0 +1,173 @@
+"use client";
+
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { products, categories, Product } from "@/lib/data";
+import ProductCard from "./ProductCard";
+import CategoryPills from "./CategoryPills";
+
+const ITEMS_PER_PAGE = 12; // 4x3 grid
+
+export default function ProductCatalog() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
+  const [activeCategory, setActiveCategory] = useState(searchParams.get("category") || "All Categories");
+
+  // Sync state with URL params
+  useEffect(() => {
+    const q = searchParams.get("q") || "";
+    const cat = searchParams.get("category") || "All Categories";
+    setSearchQuery(q);
+    setActiveCategory(cat);
+    setCurrentPage(1); // Reset to first page on filter change
+  }, [searchParams]);
+
+  const filteredProducts = useMemo(() => {
+    return products.filter((p) => {
+      const matchesSearch = 
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
+      
+      const matchesCategory = activeCategory === "All Categories" || p.category === activeCategory;
+      
+      return matchesSearch && matchesCategory;
+    });
+  }, [searchQuery, activeCategory]);
+
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+  const paginatedProducts = filteredProducts.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setSearchQuery(val);
+    const params = new URLSearchParams(searchParams.toString());
+    if (val) params.set("q", val);
+    else params.delete("q");
+    router.push(`/catalog?${params.toString()}`, { scroll: false });
+  };
+
+  return (
+    <div id="products" className="max-w-7xl mx-auto px-6 lg:px-10 py-12 scroll-mt-24">
+      {/* Search and Filters Header */}
+      <div className="flex flex-col space-y-8 mb-12">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div>
+            <h1 className="font-display text-4xl font-bold text-ink tracking-tight">
+              Product Catalog
+            </h1>
+            <p className="text-muted mt-2 text-lg">
+              Browse our comprehensive directory of industrial engineering solutions.
+            </p>
+          </div>
+          
+          <div className="relative max-w-md w-full">
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+              <svg className="h-5 w-5 text-faint" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <input
+              type="text"
+              placeholder="Search products, companies, tags..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className="block w-full pl-10 pr-4 py-3 bg-surface border border-line rounded-xl text-ink placeholder:text-faint focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all shadow-sm"
+            />
+          </div>
+        </div>
+
+        <div className="border-t border-line/50 pt-8">
+           <CategoryPills />
+        </div>
+      </div>
+
+      {/* Grid */}
+      {paginatedProducts.length > 0 ? (
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {paginatedProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="mt-16 flex justify-center items-center gap-2">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="p-2 rounded-lg border border-line text-muted hover:bg-canvas disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                aria-label="Previous page"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              
+              <div className="flex items-center gap-1">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => handlePageChange(page)}
+                    className={`min-w-[40px] h-10 rounded-lg font-medium text-sm transition-all ${
+                      currentPage === page
+                        ? "bg-accent text-white shadow-md shadow-accent/20"
+                        : "text-muted hover:bg-canvas hover:text-ink border border-transparent"
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="p-2 rounded-lg border border-line text-muted hover:bg-canvas disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                aria-label="Next page"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          )}
+          
+          <div className="mt-8 text-center text-sm text-faint">
+            Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1} to {Math.min(currentPage * ITEMS_PER_PAGE, filteredProducts.length)} of {filteredProducts.length} products
+          </div>
+        </>
+      ) : (
+        <div className="py-32 text-center border border-dashed border-line rounded-3xl bg-canvas/50">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-line/20 text-faint mb-4">
+             <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+             </svg>
+          </div>
+          <h3 className="text-xl font-semibold text-ink">No products found</h3>
+          <p className="text-muted mt-2 max-w-sm mx-auto">
+            We couldn't find any products matching your current filters. Try adjusting your search or category selection.
+          </p>
+          <button 
+            onClick={() => router.push('/catalog')}
+            className="mt-6 text-accent font-semibold hover:underline"
+          >
+            Clear all filters
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
