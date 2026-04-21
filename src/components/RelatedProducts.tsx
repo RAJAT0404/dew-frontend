@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { products, type Product } from "@/lib/data";
+import { products } from "@/lib/data";
 
 interface RelatedProductsProps {
   currentProductId: string;
@@ -8,12 +8,10 @@ interface RelatedProductsProps {
 }
 
 export default function RelatedProducts({ currentProductId, category }: RelatedProductsProps) {
-  // Find products in the same category, excluding the current one
   const related = products
     .filter((p) => p.category === category && p.id !== currentProductId)
     .slice(0, 3);
 
-  // If not enough in same category, just pick some others
   if (related.length < 3) {
     const others = products
       .filter((p) => p.id !== currentProductId && !related.find((r) => r.id === p.id))
@@ -22,11 +20,11 @@ export default function RelatedProducts({ currentProductId, category }: RelatedP
   }
 
   return (
-    <section className="mt-20 pt-20 border-t border-line">
-      <h2 className="font-display text-2xl font-bold text-ink mb-8">
+    <section className="mt-10 pt-8 border-t border-line">
+      <h2 className="font-display text-base font-bold text-ink mb-4">
         Related Products
       </h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {related.map((product) => (
           <Link
             key={product.id}
@@ -38,19 +36,17 @@ export default function RelatedProducts({ currentProductId, category }: RelatedP
                 src={product.image}
                 alt={product.name}
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
               />
             </div>
-            <div className="p-5">
-              <span className="text-[10px] font-semibold uppercase tracking-widest text-accent-muted mb-2 block">
+            <div className="px-4 py-3">
+              <span className="text-[9px] font-semibold uppercase tracking-widest text-accent-muted mb-1 block">
                 {product.category}
               </span>
-              <h3 className="font-display text-lg font-bold text-ink group-hover:text-accent transition-colors">
+              <h3 className="font-display text-sm font-bold text-ink group-hover:text-accent transition-colors leading-snug">
                 {product.name}
               </h3>
-              <p className="text-sm text-muted line-clamp-1 mt-1">
-                {product.company}
-              </p>
+              <p className="text-xs text-muted mt-0.5">{product.company}</p>
             </div>
           </Link>
         ))}

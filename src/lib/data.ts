@@ -80,7 +80,7 @@ The oil-cooled motor allows operation in partially submerged or non-submerged co
 Available in stainless steel and cast iron configurations, with optional explosion-proof rating (ATEX Zone 1) for chemical processing facilities. Integrated temperature and moisture sensors feed into Xylem's MissionControl SCADA platform for predictive maintenance scheduling.`,
     insight:
       "The MegaFlow X7 addresses a critical pain point in aging wastewater infrastructure: clog-induced downtime. Xylem's N-impeller geometry is covered by three active patents, creating a 3–5 year competitive moat. Growing municipal investment in wastewater infrastructure (estimated $18B CAGR 10.2% through 2030) positions this product favorably. The ATEX rating expansion unlocks the chemical sector, where Grundfos and KSB have historically dominated — a strategically important market entry.",
-    tags: ["wastewater", "submersible", "anti-clog", "ATEX", "heavy-duty", "N-impeller"],
+    tags: ["wastewater", "submersible", "submersible pump", "anti-clog", "ATEX", "heavy-duty", "N-impeller"],
     supplierUrl: "#",
     image: "/products/megaflow-x7.png",
     specifications: {

@@ -35,7 +35,7 @@ export default function Hero() {
       <div className="relative z-10 flex-1 flex items-end pb-20 md:pb-28">
         <div className="max-w-7xl mx-auto w-full px-6 lg:px-10">
           <div className="max-w-2xl animate-fade-in-up">
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight mb-5 text-balance">
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1] tracking-tight mb-6 text-balance">
               The Intelligence Layer for Global Engineering
             </h1>
 
