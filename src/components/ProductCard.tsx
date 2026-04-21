@@ -9,7 +9,7 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
-      href={`/product/${product.id}`}
+      href={`/catalog/${product.id}`}
       id={`product-card-${product.id}`}
       className="group flex flex-col bg-surface border border-line rounded-xl overflow-hidden hover:border-accent-border hover:shadow-md transition-all duration-250"
     >

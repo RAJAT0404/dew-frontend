@@ -30,7 +30,7 @@ export default function RelatedProducts({ currentProductId, category }: RelatedP
         {related.map((product) => (
           <Link
             key={product.id}
-            href={`/product/${product.id}`}
+            href={`/catalog/${product.id}`}
             className="group block bg-surface border border-line rounded-xl overflow-hidden hover:border-accent-border hover:shadow-md transition-all duration-200"
           >
             <div className="aspect-[16/9] relative overflow-hidden bg-canvas">

@@ -57,10 +57,10 @@ export default async function ProductPage({ params }: PageProps) {
             </Link>
             <span aria-hidden="true">/</span>
             <Link
-              href="/#products"
+              href="/catalog"
               className="hover:text-muted transition-colors duration-150"
             >
-              Products
+              Catalog
             </Link>
             <span aria-hidden="true">/</span>
             <span className="text-muted truncate max-w-[200px]">
@@ -255,7 +255,7 @@ export default async function ProductPage({ params }: PageProps) {
           {/* Back link */}
           <div className="mt-20 text-center">
             <Link
-              href="/"
+              href="/catalog"
               className="inline-flex items-center gap-2 text-sm font-semibold text-muted hover:text-ink transition-colors duration-150"
             >
               <svg
