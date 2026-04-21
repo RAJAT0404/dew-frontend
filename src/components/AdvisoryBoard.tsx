@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function AdvisoryBoard() {
   return (
     <section
-      className="relative py-[15vh] overflow-hidden text-white text-center"
+      className="relative py-24 overflow-hidden text-white text-center"
       style={{
         background: "linear-gradient(135deg, #0B1628 0%, #0f2a5e 60%, #1a3a7a 100%)",
       }}

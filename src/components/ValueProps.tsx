@@ -55,7 +55,7 @@ const props = [
 
 export default function ValueProps() {
   return (
-    <section className="bg-white py-[12vh]">
+    <section className="bg-white py-20">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="grid md:grid-cols-3 gap-12">
           {props.map((item) => (

@@ -26,11 +26,6 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       {/* Info */}
       <div className="flex flex-col gap-2.5 p-5 flex-1">
-        {/* Category badge */}
-        <span className="self-start text-[11px] font-semibold uppercase tracking-widest text-accent-muted bg-accent-subtle px-2.5 py-1 rounded-md">
-          {product.category}
-        </span>
-
         {/* Product name */}
         <h3 className="font-display text-lg font-semibold text-ink leading-snug group-hover:text-accent transition-colors duration-200">
           {product.name}
@@ -56,8 +51,19 @@ export default function ProductCard({ product }: ProductCardProps) {
           </span>
           <span className="text-xs font-medium text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center gap-1">
             View details
-            <svg viewBox="0 0 16 16" fill="none" className="w-3.5 h-3.5" aria-hidden="true">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <svg
+              viewBox="0 0 16 16"
+              fill="none"
+              className="w-3.5 h-3.5"
+              aria-hidden="true"
+            >
+              <path
+                d="M3 8h10M9 4l4 4-4 4"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </span>
         </div>

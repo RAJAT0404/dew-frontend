@@ -52,7 +52,7 @@ const services = [
 
 export default function EngineeringServices() {
   return (
-    <section className="bg-white py-[10vh] border-t border-slate-100">
+    <section className="bg-white py-20 border-t border-slate-100">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="grid md:grid-cols-3 divide-x divide-slate-100">
           {services.map((item, i) => (

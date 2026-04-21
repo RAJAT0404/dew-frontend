@@ -23,27 +23,24 @@ export default function ProductFeed() {
   });
 
   return (
-    <section id="products" className="py-[12vh] bg-[#fafbfd] border-y border-slate-100 scroll-mt-20">
+    <section id="products" className="py-20 bg-surface border-y border-line scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
-        <div className="flex flex-col items-center text-center gap-4 mb-10">
-          <div className="animate-fade-in-up">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight leading-none">
-              Latest Engineering Solutions
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
+          <div>
+            <h2 className="font-display text-3xl font-bold text-ink tracking-tight">
+              {category || query ? "Search Results" : "Latest Products"}
             </h2>
-            <div className="flex items-center justify-center gap-2 mt-4">
-              <span className="flex h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">
-                Featured Products
-              </p>
-            </div>
+            <p className="text-sm text-muted mt-3 max-w-lg">
+            Whether you&apos;re sourcing components or selling them, Dew puts the right information at your fingertips.
+          </p>
           </div>
         </div>
 
         {/* Grid */}
         {filteredProducts.length > 0 ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in-up delay-100">
-            {filteredProducts.slice(0, 4).map((p) => (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {filteredProducts.slice(0,4).map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}
           </div>

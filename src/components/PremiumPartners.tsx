@@ -3,12 +3,77 @@
 import { useRef } from "react";
 
 const partners = [
-  { name: "Analytis Business", subtitle: "Locatix Engineering Services" },
-  { name: "Precision Dynamics", subtitle: "Industrial Manufacturing Division" },
-  { name: "CoreTech Systems", subtitle: "OEM Component Specialists" },
-  { name: "Vertex Fabrication", subtitle: "Custom Engineering Solutions" },
-  { name: "NordMech GmbH", subtitle: "European Supplier Network" },
-  { name: "Aquaflow Industries", subtitle: "Fluid Systems & Pumping" },
+  {
+    name: "Siemens",
+    subtitle: "Industrial Automation & Drives",
+    logo: (
+      // ABB: bold stacked letters in box
+      <svg viewBox="0 0 52 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-7 w-auto">
+        <rect width="34" height="24" rx="2" fill="#0D0D0D" />
+        <text x="17" y="17" textAnchor="middle" fill="white" fontSize="12" fontWeight="800" fontFamily="sans-serif" letterSpacing="1">ABB</text>
+      </svg>
+    ),
+  },
+  {
+    name: "Bosch",
+    subtitle: "Engineering & Technology",
+    logo: (
+      // Bosch-style: circle badge mark
+      <svg viewBox="0 0 68 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-7 w-auto">
+        <circle cx="12" cy="12" r="11" fill="#0D0D0D" />
+        <circle cx="12" cy="12" r="7" fill="none" stroke="white" strokeWidth="1.5" />
+        <circle cx="12" cy="12" r="3" fill="white" />
+        <text x="28" y="17" fill="#0D0D0D" fontSize="13" fontWeight="700" fontFamily="sans-serif" letterSpacing="-0.2">Bosch</text>
+      </svg>
+    ),
+  },
+  {
+    name: "Parker",
+    subtitle: "Motion & Control Technologies",
+    logo: (
+      // Parker: angular arrow mark
+      <svg viewBox="0 0 66 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-7 w-auto">
+        <polygon points="0,12 10,2 20,12 10,22" fill="#0D0D0D" />
+        <polygon points="5,12 10,7 15,12 10,17" fill="white" />
+        <text x="26" y="17" fill="#0D0D0D" fontSize="13" fontWeight="700" fontFamily="sans-serif" letterSpacing="-0.2">Parker</text>
+      </svg>
+    ),
+  },
+  {
+    name: "ABB",
+    subtitle: "Power & Automation",
+    logo: (
+      // ABB: bold stacked letters in box
+      <svg viewBox="0 0 52 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-7 w-auto">
+        <rect width="34" height="24" rx="2" fill="#0D0D0D" />
+        <text x="17" y="17" textAnchor="middle" fill="white" fontSize="12" fontWeight="800" fontFamily="sans-serif" letterSpacing="1">ABB</text>
+      </svg>
+    ),
+  },
+  {
+    name: "SKF",
+    subtitle: "Bearings & Sealing Solutions",
+    logo: (
+      // Parker: angular arrow mark
+      <svg viewBox="0 0 66 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-7 w-auto">
+        <polygon points="0,12 10,2 20,12 10,22" fill="#0D0D0D" />
+        <polygon points="5,12 10,7 15,12 10,17" fill="white" />
+        <text x="26" y="17" fill="#0D0D0D" fontSize="13" fontWeight="700" fontFamily="sans-serif" letterSpacing="-0.2">Parker</text>
+      </svg>
+    ),
+  },
+  {
+    name: "Festo",
+    subtitle: "Pneumatic & Electric Automation",
+    logo: (
+      // Festo: clean hex mark
+      <svg viewBox="0 0 60 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-7 w-auto">
+        <polygon points="12,1 21,6 21,18 12,23 3,18 3,6" fill="#0D0D0D" />
+        <text x="12" y="17" textAnchor="middle" fill="white" fontSize="10" fontWeight="700" fontFamily="sans-serif">F</text>
+        <text x="28" y="17" fill="#0D0D0D" fontSize="13" fontWeight="700" fontFamily="sans-serif" letterSpacing="-0.2">Festo</text>
+      </svg>
+    ),
+  },
 ];
 
 export default function PremiumPartners() {
@@ -16,37 +81,40 @@ export default function PremiumPartners() {
 
   const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return;
-    scrollRef.current.scrollBy({ left: dir === "right" ? 260 : -260, behavior: "smooth" });
+    scrollRef.current.scrollBy({
+      left: dir === "right" ? 280 : -280,
+      behavior: "smooth",
+    });
   };
 
   return (
-    <section className="bg-[#fafbfd] py-24 border-t border-slate-100 relative overflow-hidden">
-      {/* Subtle background grid pattern */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#1557C8 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
-      
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
+    <section className="bg-white py-16 border-t border-slate-100">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
         {/* Header row */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
           <div>
-            <h2 className="text-3xl font-bold text-slate-900 tracking-tight">Premium Partners</h2>
+            <h2 className="font-display text-3xl font-bold text-slate-900 tracking-tight">
+              Premium Partners
+            </h2>
           </div>
-          <div className="flex items-center gap-3">
+
+          <div className="flex items-center gap-2">
             <button
               onClick={() => scroll("left")}
               aria-label="Scroll left"
-              className="w-12 h-12 rounded-xl border border-slate-200 flex items-center justify-center text-slate-500 hover:text-white hover:bg-slate-900 hover:border-slate-900 transition-all duration-300 shadow-sm"
+              className="w-9 h-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-400 hover:text-slate-900 hover:border-slate-400 hover:bg-slate-50 transition-all duration-150"
             >
-              <svg viewBox="0 0 16 16" fill="none" className="w-5 h-5">
-                <path d="M10 4L6 8l4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4">
+                <path d="M10 4L6 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
             <button
               onClick={() => scroll("right")}
               aria-label="Scroll right"
-              className="w-12 h-12 rounded-xl border border-slate-200 flex items-center justify-center text-slate-500 hover:text-white hover:bg-slate-900 hover:border-slate-900 transition-all duration-300 shadow-sm"
+              className="w-9 h-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-400 hover:text-slate-900 hover:border-slate-400 hover:bg-slate-50 transition-all duration-150"
             >
-              <svg viewBox="0 0 16 16" fill="none" className="w-5 h-5">
-                <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4">
+                <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
           </div>
@@ -55,40 +123,24 @@ export default function PremiumPartners() {
         {/* Scrollable partner list */}
         <div
           ref={scrollRef}
-          className="flex gap-6 overflow-x-auto scrollbar-hide pb-8 -mx-2 px-2"
-          style={{ scrollbarWidth: "none" }}
+          className="flex gap-4 overflow-x-auto pb-2"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
-          {partners.map((p, idx) => (
+          {partners.map((p) => (
             <div
               key={p.name}
-              className="flex-shrink-0 w-80 bg-white border border-slate-100 rounded-2xl p-6 hover:border-accent/30 hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] transition-all duration-300 group cursor-pointer"
+              className="group flex-shrink-0 w-60 border border-slate-200 rounded-xl px-5 py-5 hover:border-slate-300 hover:shadow-md transition-all duration-200 cursor-pointer bg-white hover:bg-slate-50"
             >
-              <div className="mb-6">
-                <p className="text-lg font-bold text-slate-900 group-hover:text-accent transition-colors">{p.name}</p>
-                <p className="text-xs font-medium text-slate-400 uppercase tracking-wider mt-1">{p.subtitle}</p>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4 py-4 border-y border-slate-50">
-                <div>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase">Projects</p>
-                  <p className="text-sm font-bold text-slate-700">{(idx + 1) * 12}+</p>
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase">Experience</p>
-                  <p className="text-sm font-bold text-slate-700">{8 + idx} yrs</p>
-                </div>
+              {/* Brand logo */}
+              <div className="mb-6 h-8 flex items-center">
+                {p.logo}
               </div>
 
-              <div className="mt-6 flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <svg key={star} viewBox="0 0 20 20" fill={star <= 4 ? "#F59E0B" : "#E2E8F0"} className="w-3 h-3">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                <span className="text-xs font-bold text-accent group-hover:underline">View Profile</span>
-              </div>
+              {/* Company name as heading */}
+              <p className="text-sm font-bold text-slate-900 mb-1 leading-snug">
+                {p.name}
+              </p>
+              <p className="text-xs text-slate-500 leading-relaxed">{p.subtitle}</p>
             </div>
           ))}
         </div>

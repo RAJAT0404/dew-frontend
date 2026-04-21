@@ -46,7 +46,7 @@ export default function SearchBar() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search pumps, power supplies, manufacturers..."
-          className="flex-1 py-4 text-base text-ink placeholder:text-faint bg-transparent outline-none min-w-0"
+          className="flex-1 py-6 text-base text-ink placeholder:text-faint bg-transparent outline-none min-w-0"
           autoComplete="off"
           spellCheck={false}
         />
