@@ -37,6 +37,7 @@ export default function RelatedProducts({ currentProductId, category }: RelatedP
                 alt={product.name}
                 fill
                 className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
             </div>
             <div className="px-4 py-3">
